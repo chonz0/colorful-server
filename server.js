@@ -43,7 +43,9 @@ server.get('/status', function (req, res) {
 
 // start our server
 try {
-  server.listen(process.env.PORT || 8999, () => {
+  // const port = process.env.PORT || 8999;
+  const port = 3000;
+  server.listen(port, () => {
     console.log(`Server started on port ${server.address().port} :)`);
   });
 } catch (e) {
