@@ -37,6 +37,10 @@ wss.on('connection', (ws) => {
   }, 3000);
 });
 
+server.get('/status', function (req, res) {
+  res.send('✅ Hello World!');
+});
+
 // start our server
 try {
   server.listen(process.env.PORT || 8999, () => {
