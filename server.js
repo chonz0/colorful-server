@@ -25,7 +25,14 @@ wss.on('connection', (ws) => {
 
     if (message === 'getColor') {
       const color = randomColor(); // a hex code for an attractive color
-      ws.send(color);
+      // ws.send(color);
+
+      wss.clients.forEach(function each(client) {
+        // if (/*client !== ws &&*/ client.readyState === WebSocket.OPEN) {
+          client.send(color);
+        // }
+      });
+
     } else {
       ws.send(`Hello, you sent -> ${message}`);
     }
