@@ -45,7 +45,7 @@ wss.on('connection', (ws) => {
     const color = randomColor(); // a hex code for an attractive color
     console.log('new color sent', color);
     ws.send(color);
-  }, 3000);
+  }, 10000);
 });
 
 // start our server
