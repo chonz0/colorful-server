@@ -5,6 +5,10 @@ const randomColor = require('randomcolor');
 
 const app = express();
 
+app.get('/status', function (req, res) {
+  res.send('✅ Hello World!');
+});
+
 //initialize a simple http server
 const server = http.createServer(app);
 
@@ -35,10 +39,6 @@ wss.on('connection', (ws) => {
     console.log('new color sent', color);
     ws.send(color);
   }, 3000);
-});
-
-server.get('/status', function (req, res) {
-  res.send('✅ Hello World!');
 });
 
 // start our server
