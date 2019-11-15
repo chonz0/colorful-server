@@ -29,22 +29,35 @@ wss.on('connection', (ws) => {
 
       wss.clients.forEach(function each(client) {
         // if (/*client !== ws &&*/ client.readyState === WebSocket.OPEN) {
-          client.send(color);
+          client.send(JSON.stringify({
+            type: 'color',
+            payload: color
+          }));
         // }
       });
 
     } else {
-      ws.send(`Hello, you sent -> ${message}`);
+      ws.send(JSON.stringify({
+        type: 'message',
+        payload: `Hello, you sent -> ${message}`
+      }));
     }
   });
 
   // send immediatly a feedback to the incoming connection
-  ws.send('👋 Hi there, I am a WebSocket server');
+  ws.send(JSON.stringify({
+    type: 'status',
+    status: 200,
+    payload: '👋 Hi there, I am a WebSocket server'
+  }));
 
   setInterval(() => {
     const color = randomColor(); // a hex code for an attractive color
     console.log('new color sent', color);
-    ws.send(color);
+    ws.send(JSON.stringify({
+      type: 'color',
+      payload: color
+    }));
   }, 10000);
 });
 
