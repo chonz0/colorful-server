@@ -16,6 +16,10 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
+  ws.send(JSON.stringify({
+    type: 'connection_count',
+    payload: wss.clients.size
+  }));
 
   // connection is up, let's add a simple simple event
   ws.on('message', (message) => {
