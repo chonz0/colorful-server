@@ -16,10 +16,12 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
-  ws.send(JSON.stringify({
-    type: 'connection_count',
-    payload: wss.clients.size
-  }));
+  wss.clients.forEach(function each(client) {
+    client.send(JSON.stringify({
+      type: 'connection_count',
+      payload: wss.clients.size
+    }));
+  });
 
   // connection is up, let's add a simple simple event
   ws.on('message', (message) => {
@@ -43,7 +45,7 @@ wss.on('connection', (ws) => {
     } else {
       ws.send(JSON.stringify({
         type: 'message',
-        payload: `Hello, you sent -> ${message}`
+        payload: `👋 Hello, you sent -> ${message}`
       }));
     }
   });
